@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Garantía</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="main-container">
+        <h1>Detalle de Garantía</h1>
+        <p><strong>ID:</strong> {{ garantia.id }}</p>
+        <p><strong>Producto:</strong> {{ garantia.nombre_producto }}</p>
+        <p><strong>Cliente:</strong> {{ garantia.cliente }}</p>
+        <p><strong>Proveedor:</strong> {{ garantia.proveedor }}</p>
+        <p><strong>Sucursal Actual:</strong> {{ garantia.sucursal_actual }}</p>
+        <p><strong>Estado:</strong> {{ garantia.estado }}</p>
+        <p><strong>Responsable:</strong> {{ garantia.responsable }}</p>
+
+        <h2>Historial de Estados</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Estado Anterior</th>
+                    <th>Nuevo Estado</th>
+                    <th>Usuario</th>
+                    <th>Comentario</th>
+                    <th>Sucursal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registro in historial %}
+                <tr>
+                    <td>{{ registro.fecha }}</td>
+                    <td>{{ registro.estado_anterior }}</td>
+                    <td>{{ registro.nuevo_estado }}</td>
+                    <td>{{ registro.usuario }}</td>
+                    <td>{{ registro.comentario }}</td>
+                    <td>{{ registro.sucursal }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ url_for('index') }}">Volver a la Página Principal</a>
+    </div>
+</body>
+</html>

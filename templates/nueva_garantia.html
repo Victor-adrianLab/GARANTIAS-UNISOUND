@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Nueva Garantía</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="main-container">
+        <h1>Registrar Nueva Garantía</h1>
+        <form method="POST" action="{{ url_for('nueva_garantia') }}">
+            <label for="nombre_producto">Nombre del Producto:</label>
+            <input type="text" id="nombre_producto" name="nombre_producto" required>
+            
+            <label for="proveedor">Proveedor:</label>
+            <input type="text" id="proveedor" name="proveedor" required>
+            
+            <label for="cliente">Cliente:</label>
+            <input type="text" id="cliente" name="cliente" required>
+            
+            <label for="defecto_reportado">Defecto Reportado:</label>
+            <input type="text" id="defecto_reportado" name="defecto_reportado" required>
+            
+            <label for="tamanio_caja">Tamaño de la Caja:</label>
+            <input type="text" id="tamanio_caja" name="tamanio_caja">
+            
+            <label for="sucursal_origen">Sucursal de Origen:</label>
+            <select id="sucursal_origen" name="sucursal_origen">
+                {% for sucursal in sucursales %}
+                <option value="{{ sucursal }}">{{ sucursal }}</option>
+                {% endfor %}
+            </select>
+            
+            <label for="sucursal_actual">Sucursal Actual:</label>
+            <select id="sucursal_actual" name="sucursal_actual">
+                {% for sucursal in sucursales %}
+                <option value="{{ sucursal }}">{{ sucursal }}</option>
+                {% endfor %}
+            </select>
+            
+            <label for="transportista">Transportista:</label>
+            <input type="text" id="transportista" name="transportista">
+            
+            <label for="observaciones">Observaciones:</label>
+            <input type="text" id="observaciones" name="observaciones">
+            
+            <label for="responsable">Responsable:</label>
+            <select id="responsable" name="responsable">
+                {% for usuario in usuarios %}
+                <option value="{{ usuario.username }}">{{ usuario.username }}</option>
+                {% endfor %}
+            </select>
+            
+            <button type="submit">Registrar Garantía</button>
+        </form>
+        <a href="{{ url_for('index') }}">Volver a la Página Principal</a>
+    </div>
+</body>
+</html>

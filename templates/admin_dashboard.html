@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard del Administrador</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="main-container">
+        <h1>Dashboard del Administrador</h1>
+        <h2>Crear Nuevo Usuario</h2>
+        <form method="POST" action="{{ url_for('admin_dashboard') }}">
+            <label for="username">Nombre de usuario:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+            <label for="role">Rol:</label>
+            <select id="role" name="role">
+                <option value="admin">Admin</option>
+                <option value="usuario_sucursal">Usuario Sucursal</option>
+            </select>
+            <button type="submit">Crear Usuario</button>
+        </form>
+
+        <h2>Lista de Usuarios</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre de Usuario</th>
+                    <th>Rol</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.id }}</td>
+                    <td>{{ usuario.username }}</td>
+                    <td>{{ usuario.role }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('index') }}">Volver a la Página Principal</a>
+    </div>
+</body>
+</html>

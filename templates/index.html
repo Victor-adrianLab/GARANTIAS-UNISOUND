@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control y Rastreo de Garantías</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="main-container">
+        <h1>Control y Rastreo de Garantías</h1>
+        
+        <div class="filters">
+            <form method="GET" action="/">
+                <label for="sucursal">Sucursal:</label>
+                <select id="sucursal" name="sucursal">
+                    <option value="">Todas</option>
+                    {% for sucursal in sucursales %}
+                    <option value="{{ sucursal }}" {% if request.args.get('sucursal') == sucursal %}selected{% endif %}>{{ sucursal }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="proveedor">Proveedor:</label>
+                <input type="text" id="proveedor" name="proveedor" value="{{ request.args.get('proveedor', '') }}">
+
+                <label for="dias_transcurridos">Días Transcurridos:</label>
+                <input type="text" id="dias_transcurridos" name="dias_transcurridos" value="{{ request.args.get('dias_transcurridos', '') }}">
+
+                <label for="estado">Estado:</label>
+                <select id="estado" name="estado">
+                    <option value="">Todos</option>
+                    {% for estado in estados %}
+                    <option value="{{ estado }}" {% if request.args.get('estado') == estado %}selected{% endif %}>{{ estado }}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit">Filtrar</button>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Producto</th>
+                    <th>Cliente</th>
+                    <th>Proveedor</th>
+                    <th>Sucursal Actual</th>
+                    <th>Estado</th>
+                    <th>Días Transcurridos</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for garantia in garantias %}
+                <tr {% if garantia.alerta %}class="alerta"{% elif garantia.estado == 'Producto entregado al cliente' %}class="entregado"{% endif %}>
+                    <td>{{ garantia.id }}</td>
+                    <td>{{ garantia.nombre_producto }}</td>
+                    <td>{{ garantia.cliente }}</td>
+                    <td>{{ garantia.proveedor }}</td>
+                    <td>{{ garantia.sucursal_actual }}</td>
+                    <td>{{ garantia.estado }}</td>
+                    <td>{{ garantia.dias_transcurridos }}</td>
+                    <td>
+                        <a href="{{ url_for('obtener_garantia', id=garantia.id) }}">Ver Detalle</a> |
+                        <a href="{{ url_for('actualizar_estado_garantia', id=garantia.id) }}">Actualizar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ url_for('nueva_garantia') }}">Registrar Nueva Garantía</a> |
+        <a href="{{ url_for('dashboard_usuarios') }}">Dashboard de Usuarios</a> |
+        <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+    </div>
+</body>
+</html>

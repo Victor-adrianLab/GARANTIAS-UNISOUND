@@ -1,0 +1,6 @@
+Samaritano2024$
+http://127.0.0.1:5001/
+venv\Scripts\activate
+python app.py
+admin
+password

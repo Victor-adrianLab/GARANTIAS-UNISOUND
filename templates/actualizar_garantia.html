@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Estado de Garantía</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="main-container">
+        <h1>Actualizar Estado de Garantía</h1>
+        <form method="POST" action="{{ url_for('actualizar_estado_garantia', id=garantia.id) }}">
+            <label for="estado">Estado:</label>
+            <select id="estado" name="estado">
+                <option value="Recibido en sucursal">Recibido en sucursal</option>
+                <option value="Enviado al proveedor">Enviado al proveedor</option>
+                <option value="En tránsito">En tránsito</option>
+                <option value="Recibido por el proveedor">Recibido por el proveedor</option>
+                <option value="En proceso de reparación">En proceso de reparación</option>
+                <option value="Producto listo para devolución">Producto listo para devolución</option>
+                <option value="De vuelta a sucursal">De vuelta a sucursal</option>
+                <option value="Producto entregado al cliente">Producto entregado al cliente</option>
+            </select>
+            
+            <label for="comentario">Comentario:</label>
+            <input type="text" id="comentario" name="comentario">
+            
+            <label for="responsable">Responsable:</label>
+            <select id="responsable" name="responsable">
+                {% for usuario in usuarios %}
+                <option value="{{ usuario.username }}">{{ usuario.username }}</option>
+                {% endfor %}
+            </select>
+            
+            <button type="submit">Actualizar Estado</button>
+        </form>
+        <a href="{{ url_for('index') }}">Volver a la Página Principal</a>
+    </div>
+</body>
+</html>
